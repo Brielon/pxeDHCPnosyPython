@@ -45,9 +45,11 @@ def addDataOptions(data):
      #magic cookie == 0x63 0x82 0x53 0x63
      magicCookie = b"\x63\x82\x53\x63"
      newdata = b""
+     aditingOpts = False
      for byte in data:
           newdata += struct.pack(!B,byte)
-          if newdata[-4:] == magicCookie:
+          if newdata[-4:] == magicCookie and not aditingOpts:
                newdata += option66
                newdata += option67
+               aditingOpts = True
      return newdata
